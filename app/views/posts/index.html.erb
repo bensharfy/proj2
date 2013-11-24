@@ -1,0 +1,58 @@
+<html>
+	<head>
+		<style>
+			hr.first {
+				color: #C0C0C0;
+				background: #C0C0C0; 
+				width: 100%; 
+				height: 1px;
+			}
+			hr.second {
+				color: #C0C0C0;
+				background: #C0C0C0; 
+				width: 94%; 
+				height: 1px;
+			}
+			span.tab{
+				padding: 0 40px; 
+			}
+			span.tab2{
+				padding: 0 60px; 
+			}
+		</style>
+		
+	</head>
+	<body>
+		<h1>Mini facebook</h1>
+		<br>
+		<%= form_for :post, url: posts_path do |f| %>
+		<p>
+			<span class="tab"><%= f.text_field :title ,:placeholder => "What's on your mind?" ,:size =>90%>
+			<%= image_submit_tag("/add.png")%></span>
+		</p>
+		<% end %>
+		<hr class="first">
+		<% @posts.each do |post| %>
+			<p> 
+				<span class="tab"><%= post.title %></span>
+			</p>
+			<% post.comments.each do |comment| %> 
+				<p>
+					<span class="tab2"><%= comment.commenter %></span>
+				</p>
+			<% end %>
+			<%= form_for([post, post.comments.build]) do |f| %>
+			<p>
+				<span class="tab2"><%= f.text_field :commenter ,:placeholder => "Enter comment here.." ,:size =>60 %>
+				<%= image_submit_tag("/add.png")%></span>
+			</p>
+		<% end %>
+
+		<hr class="second">
+		<% end %>
+		
+
+
+		<br />
+	</body>
+</html>
